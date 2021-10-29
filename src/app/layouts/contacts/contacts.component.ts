@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatTableDataSource } from '@angular/material/table';
 import { ContactService } from 'src/app/api-services/contact.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { AppConst } from 'src/app/app.constant';
@@ -20,8 +19,7 @@ export class ContactsComponent implements OnInit {
   length: any
   index: number;
   contactsList: any = [];
-  dataSource: any;
- displayedColumns: string[] = ['no', 'fristname', 'lastname', 'image'];
+
   constructor(private modalService: NgbModal, public sharedservice: SharedService, public contacts: ContactService) { this.sharedservice.showLoader(); }
 
   ngOnInit(): void {
@@ -34,7 +32,6 @@ export class ContactsComponent implements OnInit {
     this.contacts.getAllContacts(this.searchKey, this.page, this.limit).subscribe((res: any) => {
       if (res) {
         this.sharedservice.hideLoader();
-        this.dataSource = new MatTableDataSource(res.data);
         this.contactsList = res.data;
         this.length = res.total;
       }
