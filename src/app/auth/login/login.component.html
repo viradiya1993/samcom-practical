@@ -1,0 +1,67 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <h2>Login</h2>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="username">Email</label>
+                        <input type="text" class="form-control" name="username" placeholder="Email" autocomplete="off"
+                            [class.is-invalid]="isControlInvalid('username')"
+                            [class.is-valid]="isControlValid('username')" formControlName="username" />
+                        <div class="valid-feedback" *ngIf="isControlValid('username')">
+                            Email was entered correct
+                        </div>
+
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'username')">
+                            Email is required
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('email', 'username')">
+                            Email must be a valid email address
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'username')">
+                            Email should have at least 3 characters
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'username')">
+                            Email should have maximum 50 characters
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password"
+                            autocomplete="off" [class.is-invalid]="isControlInvalid('password')"
+                            [class.is-valid]="isControlValid('password')" formControlName="password" />
+                        <div class="valid-feedback" *ngIf="isControlValid('password')">
+                            password was entered correct
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'password')">
+                            password is required
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'password')">
+                            password should have at least 3 characters
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'password')">
+                            Email should have maximum 20 characters
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" class="btn btn-primary">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <p>
+        <a href="javascript:void(0)">Login Email: <b>rajesh23427+stan_lee_1@gmail.com</b></a>
+    </p>
+    <p>
+        <a href="javascript:void(0)">Password:- <b>Automation@1234</b></a>
+    </p>
+</div>

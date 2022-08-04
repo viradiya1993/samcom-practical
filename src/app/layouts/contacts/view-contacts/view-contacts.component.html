@@ -1,0 +1,39 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="modal-title h4" id="example-modal-sizes-title-lg">
+            <ng-container>
+                <ng-container>View Details</ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div class="overlay overlay-block cursor-default modal-body">
+        <div class="form-group row">
+            <div class="col-md-6 col-lg-6">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control form-control-lg form-control-solid" value="{{viewData.first_name}}" disabled
+                    placeholder="First Name" autocomplete="off" />
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control form-control-lg form-control-solid"  value="{{viewData.last_name}}" disabled
+                    placeholder="First Name" autocomplete="off" />
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control form-control-lg form-control-solid"  value="{{viewData.email}}" disabled
+                    placeholder="First Name" autocomplete="off" />
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label class="form-label">Image</label>
+                <span *ngIf="viewData.avatar != null"><img [src]="viewData?.avatar" /></span>
+			    <span *ngIf="viewData.avatar == null"><img src="assets/image/user.png" /></span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="cancel()">
+			Cancel
+		</button>
+		
+	</div>
+</div>

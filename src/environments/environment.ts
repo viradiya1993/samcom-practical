@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://reqres.in/api'
+  apiUrl: 'https://reqres.in/api',
+  loginApiUrl: 'https://api-test2.automationhq.ai/'
 };
 
 /*

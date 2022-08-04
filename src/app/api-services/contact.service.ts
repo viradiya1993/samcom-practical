@@ -12,9 +12,8 @@ export class ContactService {
   constructor(private http: HttpClient) { }
    
   //Get All contact
-  getAllContacts(search: any, page: any, limit: any): Observable<any> {
+  getAllContacts(page: any, limit: any): Observable<any> {
     let params = new HttpParams()
-      .set('search', search ? search : '')
       .set('page', page)
       .set('per_page', limit)
     return this.http.get(BACKEND_URL + '/users', { params });

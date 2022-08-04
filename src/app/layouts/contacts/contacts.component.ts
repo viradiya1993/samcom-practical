@@ -3,7 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ContactService } from 'src/app/api-services/contact.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { AppConst } from 'src/app/app.constant';
-import { AddContactsComponent } from '../add-contacts/add-contacts.component';
+import { ViewContactsComponent } from './view-contacts/view-contacts.component';
+
 
 @Component({
   selector: 'app-contacts',
@@ -11,11 +12,8 @@ import { AddContactsComponent } from '../add-contacts/add-contacts.component';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  searchKey: any = null;
-  searchTerm: any;
   page: any = 1;
   limit: number = AppConst.pageSize;;
-  modelFunctionality = AppConst.modelOpenFunctionality;
   length: any
   index: number;
   contactsList: any = [];
@@ -29,7 +27,7 @@ export class ContactsComponent implements OnInit {
   //Fetch all contacts
   getAllContacts() {
     this.sharedservice.showLoader();
-    this.contacts.getAllContacts(this.searchKey, this.page, this.limit).subscribe((res: any) => {
+    this.contacts.getAllContacts(this.page, this.limit).subscribe((res: any) => {
       if (res) {
         this.sharedservice.hideLoader();
         this.contactsList = res.data;
@@ -38,28 +36,6 @@ export class ContactsComponent implements OnInit {
     }, err => {
       this.sharedservice.swalError("Something went wrong!");
     });
-  }
-
-  //Open model
-  create() { 
-    const modalRef = this.modalService.open(AddContactsComponent, this.modelFunctionality);
-  }
-  /**
-   *  for search opration
-   * @param serachdata 
-   */
-  search(event: any) {
-    /** Search query parmas not working that's why create custome search on front side */
-    this.searchTerm = (event.target as HTMLInputElement).value;
-    // if (this.searchKey !== this.searchTerm) {
-    //   this.searchKey = this.searchTerm
-    //   this.limit = AppConst.pageSize;
-    //   this.page = 1;
-    //   this.getAllContacts();
-    // }
-     this.contactsList.filter((val: any) => val.name = this.searchTerm);
-     this.limit = AppConst.pageSize;
-     this.page = 1;
   }
 
   /**
@@ -72,4 +48,12 @@ export class ContactsComponent implements OnInit {
     this.page = event.pageIndex + 1;
     this.getAllContacts();
   }
+
+  openDialog(data: any) {
+    const modalRef = this.modalService.open(ViewContactsComponent, { size: 'lg', backdrop: 'static', keyboard: false });
+		modalRef.componentInstance.viewData = data;
+		modalRef.result.then((result) => {
+			this.getAllContacts();
+		})
+	}
 }
