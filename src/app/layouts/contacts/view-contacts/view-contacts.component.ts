@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ContactService } from 'src/app/api-services/contact.service';
 import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
@@ -13,12 +13,23 @@ export class ViewContactsComponent implements OnInit {
   loader = false;
   @Input() viewData: any;
   constructor(public sharedService: SharedService,
-    public route: ActivatedRoute, private router: Router, public modal: NgbActiveModal,) { }
+    public contacts: ContactService,
+    public route: ActivatedRoute, private router: Router) { this.sharedService.showLoader();}
 
-  ngOnInit(): void {}
-  
-    //Close model
-    cancel() {
-      this.modal.close();
-    }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if(paramMap.has('id')) {
+        this.contactId = paramMap.get('id');
+        this.sharedService.showLoader(); 
+        this.contacts.getUserDetails(this.contactId).subscribe((res: any) => {
+          if (res) {
+            this.sharedService.hideLoader(); 
+            this.viewData = res.data; 
+          }
+        }, err => {
+           this.sharedService.hideLoader();
+        });
+      }
+   })
+  }
 }

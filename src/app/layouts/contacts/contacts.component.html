@@ -24,8 +24,7 @@
 							<td>{{contacts?.last_name}}</td>
 							<td *ngIf="contacts.avatar != null"><img [src]="contacts?.avatar" /></td>
 							<td *ngIf="contacts.avatar == null"><img src="assets/image/user.png" /></td>
-							<button title="View" 	(click)="openDialog(contacts)">
-								<!--[routerLink]="'/userlist/view/' + contacts.id" -->
+							<button title="View" [routerLink]="'/userlist/view/' + contacts.id">
 								<i class="material-icons">visibility</i>
 							</button>
 						</tr>

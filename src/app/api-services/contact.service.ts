@@ -19,8 +19,10 @@ export class ContactService {
     return this.http.get(BACKEND_URL + '/users', { params });
   }
 
-  //Add contact
-  addContacts(data: any): Observable<any> {
-    return this.http.post(BACKEND_URL + '/users', data);
+   // get technology detail
+  getUserDetails(id: any) {
+    return this.http.get(BACKEND_URL + '/users/' + id);
   }
+
+ 
 }

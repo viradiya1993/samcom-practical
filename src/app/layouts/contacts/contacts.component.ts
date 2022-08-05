@@ -18,7 +18,7 @@ export class ContactsComponent implements OnInit {
   index: number;
   contactsList: any = [];
 
-  constructor(private modalService: NgbModal, public sharedservice: SharedService, public contacts: ContactService) { this.sharedservice.showLoader(); }
+  constructor(public sharedservice: SharedService, public contacts: ContactService) { this.sharedservice.showLoader(); }
 
   ngOnInit(): void {
     this.getAllContacts();
@@ -49,11 +49,5 @@ export class ContactsComponent implements OnInit {
     this.getAllContacts();
   }
 
-  openDialog(data: any) {
-    const modalRef = this.modalService.open(ViewContactsComponent, { size: 'lg', backdrop: 'static', keyboard: false });
-		modalRef.componentInstance.viewData = data;
-		modalRef.result.then((result) => {
-			this.getAllContacts();
-		})
-	}
+ 
 }
